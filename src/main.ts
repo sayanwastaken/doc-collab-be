@@ -7,6 +7,12 @@ import * as express from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.use('/',(req, res, next) => {
+    if (req.path === '/') {
+      res.send('doc-collab-be API Root nothing to see here yet!');
+    }
+    next();
+  });
   app.setGlobalPrefix('api/v1/doc-collab');
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new GlobalExceptionFilter());
